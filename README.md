@@ -2,7 +2,9 @@
 Comparing the performance of llama 3 (Meta AI), GPT-4 (Copilot) and Gemini Flash 2.0 with regards to NBA moneyline sportsbetting. Originally created as a research project while attending Eastern Connecticut State University.
 
 ## Key Findings
-Meta Ai and Gemini Flash 2.0 were significantly profitable, while copilot struggled to generate profit. Genimi and meta also proved to have accuracy on par with the book keeper.
+Meta Ai and Gemini Flash 2.0 were significantly profitable, while copilot struggled to generate profit. Meta and Gemini's accuracy was close to the book keeper's, while Copilot lagged noticeably behind.
+
+Note: To put the graph into perspective, $5 per prediction was used for these findings.
 
 ![Results Graph](graphs/Average_Profit_Per_Model.png)
 ![Results Graph](graphs/Average_Accuracy_Per_Model.png)
