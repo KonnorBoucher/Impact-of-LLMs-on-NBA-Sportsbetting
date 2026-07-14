@@ -1,47 +1,59 @@
+# imports
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-def calc_prof(bet_amt, odds, correct):
+def calc_prof(bet_amt, odds, correct): # calculate profit
     if correct == False:
-        return bet_amt * -1
+        return bet_amt * -1 # return negative number for loss
     else:
-        if odds < 0:
+        if odds < 0: # calculate winnings
             return bet_amt / (odds / -100)
         else:
             return bet_amt * (odds / 100)
 
-df = pd.read_csv('Basketball AI Data.csv')
+df = pd.read_csv("data/Basketball_AI_Data.csv") # read data
 
 total_rows = df.shape[0]
-pd.options.display.max_rows = total_rows
+pd.options.display.max_rows = total_rows # display all rows
 
-df = df.drop(df.iloc[:, 14:23], axis = 1)
+df = df.drop(df.iloc[:, 14:23], axis = 1) # clean up data
+
+# for each LLM there was normal, data given (d) and upsets(u). Normal was just asked who would win, d was given data 
+# on the previous matchup, and u picked 2 upsets each day regardless of the amount of games played
 
 meta_acc = 0
 meta_d_acc = 0
 meta_u_acc = 0
+
 gem_acc = 0
 gem_d_acc = 0
 gem_u_acc = 0
+
 cop_acc = 0
 cop_d_acc = 0
 cop_u_acc = 0
-dk_acc = 0
+
+dk_acc = 0 # book keeper
 
 acc_list = [meta_acc, meta_d_acc, meta_u_acc, gem_acc, gem_d_acc, gem_u_acc, cop_acc, cop_d_acc, cop_u_acc, dk_acc]
 
 bet_amt = 5
 
+# profit calculation
+
 meta_prof = 0
 meta_d_prof = 0
 meta_u_prof = 0
+
 gem_prof = 0
 gem_d_prof = 0
 gem_u_prof = 0
+
 cop_prof = 0
 cop_d_prof = 0
 cop_u_prof = 0
+
 dk_prof = 0
 
 prof_list = [meta_prof, meta_d_prof, meta_u_prof, gem_prof, gem_d_prof, gem_u_prof, cop_prof, cop_d_prof, cop_u_prof, dk_prof]
@@ -51,11 +63,11 @@ n = 1
 for i in range(len(acc_list)):
     total_rows = df.shape[0]
     for row in range(total_rows):
-        outcome = df.iat[row, 12]
-        prediction = df.iat[row, n]
+        outcome = df.iat[row, 12] # actual outcome of the game
+        prediction = df.iat[row, n] # current prediction
         if prediction == outcome:
             acc_list[i]  += 1
-            odds = df.iat[row, 13]
+            odds = df.iat[row, 13] # used to calculate profit
             prof_list[i] += calc_prof(bet_amt, odds, True)
         else:
             prof_list[i] += calc_prof(bet_amt, 0, False)
@@ -64,9 +76,9 @@ for i in range(len(acc_list)):
 total_games = df.shape[0]
 
 for i in range(len(acc_list)):
-    acc_list[i] = round(100 * (acc_list[i] / total_games), 2)
+    acc_list[i] = round(100 * (acc_list[i] / total_games), 2) # find and round accuracy for each category
 
-np.set_printoptions(precision = 2, legacy = '1.25')
+np.set_printoptions(precision = 2, legacy = '1.25') # format output
 for i in range(len(prof_list)):
     prof_list[i] = round(prof_list[i], 2)
 
@@ -75,6 +87,8 @@ avg_prof_per_type = [round((prof_list[0] + prof_list[3] + prof_list[6]) / 3, 2),
 
 avg_acc_per_model = [round((acc_list[0] + acc_list[1] + acc_list[2]) / 3, 2), round((acc_list[3] + acc_list[4] + acc_list[5]) / 3, 2), round((acc_list[6] + acc_list[7] + acc_list[8]) / 3, 2), round(acc_list[9], 2)]
 avg_prof_per_model = [round((prof_list[0] + prof_list[1] + prof_list[2]) / 3, 2), round((prof_list[3] + prof_list[4] + prof_list[5]) / 3, 2), round((prof_list[6] + prof_list[7] + prof_list[8]) / 3, 2), round(prof_list[9], 2)]
+
+# graphs and formatting using matplotlib
 
 models = ["Meta", "Meta w/Data", "Meta w/Upset", "Gemini", "Gemini w/Data", "Gemini w/Upset", "Copilot", "Copilot w/Data", "Copilot w/Upset", "Book Keeper"]
 plt.barh(models, acc_list)
