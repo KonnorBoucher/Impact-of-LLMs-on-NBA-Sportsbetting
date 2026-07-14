@@ -3,6 +3,7 @@ Comparing the performance of llama 3 (Meta AI), GPT-4 (Copilot) and Gemini Flash
 
 ## Key Findings
 Meta Ai and Gemini Flash 2.0 were significantly profitable, while copilot struggled to generate profit. Genimi and meta also proved to have accuracy on par with the book keeper.
+
 ![Results Graph](graphs/Average_Profit_Per_Model.png)
 ![Results Graph](graphs/Average_Accuracy_Per_Model.png)
 
