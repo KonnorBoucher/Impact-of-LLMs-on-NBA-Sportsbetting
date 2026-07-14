@@ -17,7 +17,7 @@ Note: To put the graph into perspective, $5 per prediction was used for these fi
 - Technical writing / research documentation
 
 ## Running it
-Create a virtual environment using python 3.11 and the requirements.txt file
+Create a virtual environment using python 3.11 and the requirements.txt file.
 Run Create_Graphs.py either as a python script or in a supported IDE. I reccomend VS Code!
 
 ## Limitations and Future Improvements
